@@ -1,8 +1,10 @@
+import DOM from './dom';
+
 // Adapted from https://stackoverflow.com/a/47287595/331379
 export default (element, deltaY, x, y) => {
     // Disables modern JS features to maintain IE11/ES5 support.
     /* eslint-disable no-var, no-undef, object-shorthand */
-    var box = element.getBoundingClientRect();
+    var box = DOM.getCachedBoundingClientRect(el);
     var clientX = box.left + (typeof x !== "undefined" ? x : box.width / 2);
     var clientY = box.top + (typeof y !== "undefined" ? y : box.height / 2);
     var target = element.ownerDocument.elementFromPoint(clientX, clientY);

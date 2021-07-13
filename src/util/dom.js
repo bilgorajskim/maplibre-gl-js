@@ -35,6 +35,26 @@ function testProp(props) {
 const selectProp = testProp(['userSelect', 'MozUserSelect', 'WebkitUserSelect', 'msUserSelect']);
 let userSelect;
 
+let cachedBoundingClientRects = new WeakMap();
+
+const setCachedBoundingClientRect = function (el) {
+    var rect = el.getBoundingClientRect();
+    cachedBoundingClientRects.set(el, {
+        left: rect.left,
+        top: rect.top
+    });
+    return rect;
+};
+
+DOM.getCachedBoundingClientRect = function (el) {
+    const cached = cachedBoundingClientRects.get(el);
+    if (!cached) {
+        const rect = setCachedBoundingClientRect(el);
+        return rect;
+    }
+    return cached;
+};
+
 DOM.disableDrag = function () {
     if (docStyle && selectProp) {
         userSelect = docStyle[selectProp];
@@ -104,7 +124,7 @@ DOM.suppressClick = function() {
 };
 
 DOM.mousePos = function (el: HTMLElement, e: MouseEvent | window.TouchEvent | Touch) {
-    const rect = el.getBoundingClientRect();
+    var rect = DOM.getCachedBoundingClientRect(el);
     return new Point(
         e.clientX - rect.left - el.clientLeft,
         e.clientY - rect.top - el.clientTop
@@ -112,8 +132,8 @@ DOM.mousePos = function (el: HTMLElement, e: MouseEvent | window.TouchEvent | To
 };
 
 DOM.touchPos = function (el: HTMLElement, touches: TouchList) {
-    const rect = el.getBoundingClientRect(),
-        points = [];
+    var rect = DOM.getCachedBoundingClientRect(el);
+    var points = [];
     for (let i = 0; i < touches.length; i++) {
         points.push(new Point(
             touches[i].clientX - rect.left - el.clientLeft,

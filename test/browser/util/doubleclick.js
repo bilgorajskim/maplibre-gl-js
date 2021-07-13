@@ -1,3 +1,5 @@
+import DOM from './dom';
+
 // Simulates a double click. Unfortunately, Safari doesn't properly recognize double
 // clicks when sent as two subsequent clicks via the WebDriver API. Therefore, we'll
 // manually dispatch a double click event for a particular location.
@@ -6,7 +8,7 @@
 export default (element, x, y) => {
     // Disables modern JS features to maintain IE11/ES5 support.
     /* eslint-disable no-var, no-undef, object-shorthand */
-    var box = element.getBoundingClientRect();
+    var box = DOM.getCachedBoundingClientRect(el);
     var clientX = box.left + (typeof x !== "undefined" ? x : box.width / 2);
     var clientY = box.top + (typeof y !== "undefined" ? y : box.height / 2);
     var target = element.ownerDocument.elementFromPoint(clientX, clientY);
