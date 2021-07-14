@@ -56,7 +56,7 @@ const exported = {
 
     hardwareConcurrency: window.navigator && window.navigator.hardwareConcurrency || 4,
 
-    get devicePixelRatio() { return window.devicePixelRatio; },
+    get devicePixelRatio() { return Math.min(window.devicePixelRatio, 2); },
     get prefersReducedMotion(): boolean {
         if (!window.matchMedia) return false;
         //Lazily initialize media query
