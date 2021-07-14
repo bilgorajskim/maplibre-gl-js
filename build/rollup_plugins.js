@@ -22,7 +22,7 @@ export const plugins = (minified, production) => [
         functions: ['PerformanceUtils.*', 'Debug.*']
     }) : false,
     glsl('./src/shaders/*.glsl', production),
-    buble({transforms: {dangerousForOf: true}, objectAssign: "Object.assign"}),
+    buble({transforms: {forOf: false}, objectAssign: "Object.assign"}),
     minified ? terser({
         compress: {
             pure_getters: true,

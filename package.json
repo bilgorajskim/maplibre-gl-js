@@ -1,13 +1,13 @@
 {
-  "name": "maplibre-gl",
+  "name": "@bilgorajskim/maplibre-gl",
   "description": "BSD licensed community fork of mapbox-gl, a WebGL interactive maps library",
-  "version": "1.15.2",
+  "version": "1.15.3",
   "main": "dist/maplibre-gl.js",
   "style": "dist/maplibre-gl.css",
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "git://github.com/maplibre/maplibre-gl-js.git"
+    "url": "git://github.com/bilgorajskim/maplibre-gl-js.git"
   },
   "engines": {
     "node": ">=6.4.0"
@@ -52,7 +52,6 @@
     "babelify": "^10.0.0",
     "benchmark": "^2.1.4",
     "browserify": "^16.5.0",
-    "canvas": "^2.6.1",
     "chalk": "^3.0.0",
     "chokidar": "^3.0.2",
     "cross-env": "^7.0.3",
@@ -70,7 +69,6 @@
     "eslint-plugin-react": "^7.12.4",
     "esm": "~3.0.84",
     "flow-bin": "^0.100.0",
-    "gl": "^4.5.3",
     "glob": "^7.1.4",
     "is-builtin-module": "^3.0.0",
     "jsdom": "^13.0.0",
@@ -165,7 +163,7 @@
     "test-expressions": "cross-env build/run-node test/expression.test.js",
     "test-flow": "cross-env build/run-node build/generate-flow-typed-style-spec && flow .",
     "test-cov": "nyc --require=@mapbox/flow-remove-types/register --reporter=text-summary --reporter=lcov --cache run-s test-unit test-expressions test-query test-render",
-    "prepublishOnly": "run-s prepare-publish build-flow-types build-dev build-prod-min build-prod build-csp build-css build-style-spec test-build diff-tarball",
+    "prepublishOnly": "run-s build-flow-types build-dev build-prod-min build-prod build-csp build-css build-style-spec",
     "print-release-url": "node build/print-release-url.js",
     "codegen": "cross-env build/run-node build/generate-style-code.js && build/run-node build/generate-struct-arrays.js"
   },

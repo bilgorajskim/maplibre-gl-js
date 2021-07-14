@@ -35,7 +35,8 @@ function testProp(props) {
 const selectProp = testProp(['userSelect', 'MozUserSelect', 'WebkitUserSelect', 'msUserSelect']);
 let userSelect;
 
-let cachedBoundingClientRects = new WeakMap();
+let cachedBoundingClientRects = new Map();
+let elementResizeObservers = new WeakMap();
 
 const setCachedBoundingClientRect = function (el) {
     var rect = el.getBoundingClientRect();
@@ -46,10 +47,21 @@ const setCachedBoundingClientRect = function (el) {
     return rect;
 };
 
+window.addEventListener("resize", () => {
+    for (const [el] of cachedBoundingClientRects) {
+        setCachedBoundingClientRect(el);
+    }
+});
+
 DOM.getCachedBoundingClientRect = function (el) {
     const cached = cachedBoundingClientRects.get(el);
     if (!cached) {
         const rect = setCachedBoundingClientRect(el);
+        const resizeObserver = new ResizeObserver(() => {
+            setCachedBoundingClientRect(el);
+        });
+        resizeObserver.observe(el);
+        elementResizeObservers.set(el, resizeObserver);
         return rect;
     }
     return cached;
