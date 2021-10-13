@@ -1,7 +1,7 @@
 // @flow
 
-import DOM from '../../util/dom';
-import type Point from '@mapbox/point-geometry';
+import DOM from "../../util/dom";
+import type Point from "@mapbox/point-geometry";
 
 const LEFT_BUTTON = 0;
 const RIGHT_BUTTON = 2;
@@ -9,7 +9,7 @@ const RIGHT_BUTTON = 2;
 // the values for each button in MouseEvent.buttons
 const BUTTONS_FLAGS = {
     [LEFT_BUTTON]: 1,
-    [RIGHT_BUTTON]: 2
+    [RIGHT_BUTTON]: 2,
 };
 
 function buttonStillPressed(e: MouseEvent, button: number) {
@@ -18,7 +18,6 @@ function buttonStillPressed(e: MouseEvent, button: number) {
 }
 
 class MouseHandler {
-
     _enabled: boolean;
     _active: boolean;
     _lastPoint: Point;
@@ -31,6 +30,10 @@ class MouseHandler {
         this._clickTolerance = options.clickTolerance || 1;
     }
 
+    blur() {
+        this.reset();
+    }
+
     reset() {
         this._active = false;
         this._moved = false;
@@ -38,11 +41,13 @@ class MouseHandler {
         delete this._eventButton;
     }
 
-    _correctButton(e: MouseEvent, button: number) {  //eslint-disable-line
+    _correctButton(e: MouseEvent, button: number) {
+        //eslint-disable-line
         return false; // implemented by child
     }
 
-    _move(lastPoint: Point, point: Point) {  //eslint-disable-line
+    _move(lastPoint: Point, point: Point) {
+        //eslint-disable-line
         return {}; // implemented by child
     }
 
@@ -72,7 +77,8 @@ class MouseHandler {
             return;
         }
 
-        if (!this._moved && point.dist(lastPoint) < this._clickTolerance) return;
+        if (!this._moved && point.dist(lastPoint) < this._clickTolerance)
+            return;
         this._moved = true;
         this._lastPoint = point;
 
@@ -107,7 +113,6 @@ class MouseHandler {
 }
 
 export class MousePanHandler extends MouseHandler {
-
     mousedown(e: MouseEvent, point: Point) {
         super.mousedown(e, point);
         if (this._lastPoint) this._active = true;
@@ -119,14 +124,14 @@ export class MousePanHandler extends MouseHandler {
     _move(lastPoint: Point, point: Point) {
         return {
             around: point,
-            panDelta: point.sub(lastPoint)
+            panDelta: point.sub(lastPoint),
         };
     }
 }
 
 export class MouseRotateHandler extends MouseHandler {
     _correctButton(e: MouseEvent, button: number) {
-        return (button === LEFT_BUTTON && e.ctrlKey) || (button === RIGHT_BUTTON);
+        return (button === LEFT_BUTTON && e.ctrlKey) || button === RIGHT_BUTTON;
     }
 
     _move(lastPoint: Point, point: Point) {
@@ -134,7 +139,7 @@ export class MouseRotateHandler extends MouseHandler {
         const bearingDelta = (point.x - lastPoint.x) * degreesPerPixelMoved;
         if (bearingDelta) {
             this._active = true;
-            return {bearingDelta};
+            return { bearingDelta };
         }
     }
 
@@ -147,7 +152,7 @@ export class MouseRotateHandler extends MouseHandler {
 
 export class MousePitchHandler extends MouseHandler {
     _correctButton(e: MouseEvent, button: number) {
-        return (button === LEFT_BUTTON && e.ctrlKey) || (button === RIGHT_BUTTON);
+        return (button === LEFT_BUTTON && e.ctrlKey) || button === RIGHT_BUTTON;
     }
 
     _move(lastPoint: Point, point: Point) {
@@ -155,7 +160,7 @@ export class MousePitchHandler extends MouseHandler {
         const pitchDelta = (point.y - lastPoint.y) * degreesPerPixelMoved;
         if (pitchDelta) {
             this._active = true;
-            return {pitchDelta};
+            return { pitchDelta };
         }
     }
 

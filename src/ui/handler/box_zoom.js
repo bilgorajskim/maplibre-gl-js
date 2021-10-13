@@ -1,10 +1,10 @@
 // @flow
 
-import DOM from '../../util/dom';
+import DOM from "../../util/dom";
 
-import {Event} from '../../util/evented';
+import { Event } from "../../util/evented";
 
-import type Map from '../map';
+import type Map from "../map";
 
 /**
  * The `BoxZoomHandler` allows the user to zoom the map to fit within a bounding box.
@@ -24,9 +24,12 @@ class BoxZoomHandler {
     /**
      * @private
      */
-    constructor(map: Map, options: {
-        clickTolerance: number
-    }) {
+    constructor(
+        map: Map,
+        options: {
+            clickTolerance: number,
+        }
+    ) {
         this._map = map;
         this._el = map.getCanvasContainer();
         this._container = map.getContainer();
@@ -87,7 +90,10 @@ class BoxZoomHandler {
 
         const pos = point;
 
-        if (this._lastPos.equals(pos) || (!this._box && pos.dist(this._startPos) < this._clickTolerance)) {
+        if (
+            this._lastPos.equals(pos) ||
+            (!this._box && pos.dist(this._startPos) < this._clickTolerance)
+        ) {
             return;
         }
 
@@ -95,9 +101,16 @@ class BoxZoomHandler {
         this._lastPos = pos;
 
         if (!this._box) {
-            this._box = DOM.create('div', 'maplibregl-boxzoom mapboxgl-boxzoom', this._container);
-            this._container.classList.add('maplibregl-crosshair', 'mapboxgl-crosshair');
-            this._fireEvent('boxzoomstart', e);
+            this._box = DOM.create(
+                "div",
+                "maplibregl-boxzoom mapboxgl-boxzoom",
+                this._container
+            );
+            this._container.classList.add(
+                "maplibregl-crosshair",
+                "mapboxgl-crosshair"
+            );
+            this._fireEvent("boxzoomstart", e);
         }
 
         const minX = Math.min(p0.x, pos.x),
@@ -124,11 +137,14 @@ class BoxZoomHandler {
         DOM.suppressClick();
 
         if (p0.x === p1.x && p0.y === p1.y) {
-            this._fireEvent('boxzoomcancel', e);
+            this._fireEvent("boxzoomcancel", e);
         } else {
-            this._map.fire(new Event('boxzoomend', {originalEvent: e}));
+            this._map.fire(new Event("boxzoomend", { originalEvent: e }));
             return {
-                cameraAnimation: map => map.fitScreenCoordinates(p0, p1, this._map.getBearing(), {linear: true})
+                cameraAnimation: (map) =>
+                    map.fitScreenCoordinates(p0, p1, this._map.getBearing(), {
+                        linear: true,
+                    }),
             };
         }
     }
@@ -138,14 +154,21 @@ class BoxZoomHandler {
 
         if (e.keyCode === 27) {
             this.reset();
-            this._fireEvent('boxzoomcancel', e);
+            this._fireEvent("boxzoomcancel", e);
         }
+    }
+
+    blur() {
+        this.reset();
     }
 
     reset() {
         this._active = false;
 
-        this._container.classList.remove('maplibregl-crosshair', 'mapboxgl-crosshair');
+        this._container.classList.remove(
+            "maplibregl-crosshair",
+            "mapboxgl-crosshair"
+        );
 
         if (this._box) {
             DOM.remove(this._box);
@@ -159,7 +182,7 @@ class BoxZoomHandler {
     }
 
     _fireEvent(type: string, e: *) {
-        return this._map.fire(new Event(type, {originalEvent: e}));
+        return this._map.fire(new Event(type, { originalEvent: e }));
     }
 }
 
