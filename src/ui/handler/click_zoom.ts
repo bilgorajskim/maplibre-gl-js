@@ -1,46 +1,52 @@
-import type Point from '@mapbox/point-geometry';
-import type Map from '../map';
+import type Point from "@mapbox/point-geometry";
+import type Map from "../map";
 
 export default class ClickZoomHandler {
+  _enabled: boolean;
+  _active: boolean;
 
-    _enabled: boolean;
-    _active: boolean;
+  constructor() {
+    this.reset();
+  }
 
-    constructor() {
-        this.reset();
-    }
+  blur() {
+    this.reset();
+  }
 
-    reset() {
-        this._active = false;
-    }
+  reset() {
+    this._active = false;
+  }
 
-    dblclick(e: MouseEvent, point: Point) {
-        e.preventDefault();
-        return {
-            cameraAnimation: (map: Map) => {
-                map.easeTo({
-                    duration: 300,
-                    zoom: map.getZoom() + (e.shiftKey ? -1 : 1),
-                    around: map.unproject(point)
-                }, {originalEvent: e});
-            }
-        };
-    }
+  dblclick(e: MouseEvent, point: Point) {
+    e.preventDefault();
+    return {
+      cameraAnimation: (map: Map) => {
+        map.easeTo(
+          {
+            duration: 300,
+            zoom: map.getZoom() + (e.shiftKey ? -1 : 1),
+            around: map.unproject(point),
+          },
+          { originalEvent: e }
+        );
+      },
+    };
+  }
 
-    enable() {
-        this._enabled = true;
-    }
+  enable() {
+    this._enabled = true;
+  }
 
-    disable() {
-        this._enabled = false;
-        this.reset();
-    }
+  disable() {
+    this._enabled = false;
+    this.reset();
+  }
 
-    isEnabled() {
-        return this._enabled;
-    }
+  isEnabled() {
+    return this._enabled;
+  }
 
-    isActive() {
-        return this._active;
-    }
+  isActive() {
+    return this._active;
+  }
 }
