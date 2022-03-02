@@ -1,33 +1,36 @@
 // @flow
 
-import assert from 'assert';
-import supported from '@mapbox/mapbox-gl-supported';
+import assert from "assert";
+import supported from "@mapbox/mapbox-gl-supported";
 
-import {version} from '../package.json';
-import Map from './ui/map';
-import NavigationControl from './ui/control/navigation_control';
-import GeolocateControl from './ui/control/geolocate_control';
-import AttributionControl from './ui/control/attribution_control';
-import ScaleControl from './ui/control/scale_control';
-import FullscreenControl from './ui/control/fullscreen_control';
-import Popup from './ui/popup';
-import Marker from './ui/marker';
-import Style from './style/style';
-import LngLat from './geo/lng_lat';
-import LngLatBounds from './geo/lng_lat_bounds';
-import Point from '@mapbox/point-geometry';
-import MercatorCoordinate from './geo/mercator_coordinate';
-import {Evented} from './util/evented';
-import config from './util/config';
-import {Debug} from './util/debug';
-import {isSafari} from './util/util';
-import {setRTLTextPlugin, getRTLTextPluginStatus} from './source/rtl_text_plugin';
-import WorkerPool from './util/worker_pool';
-import {prewarm, clearPrewarmedResources} from './util/global_worker_pool';
-import {clearTileCache} from './util/tile_request_cache';
-import {PerformanceUtils} from './util/performance';
-import type {RequestParameters, ResponseCallback} from './util/ajax';
-import type {Cancelable} from './types/cancelable';
+import { version } from "../package.json";
+import Map from "./ui/map";
+// import NavigationControl from './ui/control/navigation_control';
+// import GeolocateControl from './ui/control/geolocate_control';
+// import AttributionControl from './ui/control/attribution_control';
+import ScaleControl from "./ui/control/scale_control";
+// import FullscreenControl from './ui/control/fullscreen_control';
+import Popup from "./ui/popup";
+import Marker from "./ui/marker";
+import Style from "./style/style";
+import LngLat from "./geo/lng_lat";
+import LngLatBounds from "./geo/lng_lat_bounds";
+import Point from "@mapbox/point-geometry";
+import MercatorCoordinate from "./geo/mercator_coordinate";
+import { Evented } from "./util/evented";
+import config from "./util/config";
+import { Debug } from "./util/debug";
+import { isSafari } from "./util/util";
+import {
+    setRTLTextPlugin,
+    getRTLTextPluginStatus,
+} from "./source/rtl_text_plugin";
+import WorkerPool from "./util/worker_pool";
+import { prewarm, clearPrewarmedResources } from "./util/global_worker_pool";
+import { clearTileCache } from "./util/tile_request_cache";
+import { PerformanceUtils } from "./util/performance";
+import type { RequestParameters, ResponseCallback } from "./util/ajax";
+import type { Cancelable } from "./types/cancelable";
 
 const exported = {
     version,
@@ -35,11 +38,11 @@ const exported = {
     setRTLTextPlugin,
     getRTLTextPluginStatus,
     Map,
-    NavigationControl,
-    GeolocateControl,
-    AttributionControl,
+    // NavigationControl,
+    // GeolocateControl,
+    // AttributionControl,
     ScaleControl,
-    FullscreenControl,
+    // FullscreenControl,
     Popup,
     Marker,
     Style,
@@ -172,7 +175,7 @@ const exported = {
         clearTileCache(callback);
     },
 
-    workerUrl: '',
+    workerUrl: "",
 
     /**
      * Sets a custom load tile function that will be called when using a source that starts with a custom url schema.
@@ -205,7 +208,13 @@ const exported = {
      *      return { cancel: () => { } };
      * });
      */
-    addProtocol(customProtocol: string, loadFn: (requestParameters: RequestParameters, callback: ResponseCallback<any>) => Cancelable) {
+    addProtocol(
+        customProtocol: string,
+        loadFn: (
+            requestParameters: RequestParameters,
+            callback: ResponseCallback<any>
+        ) => Cancelable
+    ) {
         config.REGISTERED_PROTOCOLS[customProtocol] = loadFn;
     },
 
@@ -217,11 +226,14 @@ const exported = {
      */
     removeProtocol(customProtocol: string) {
         delete config.REGISTERED_PROTOCOLS[customProtocol];
-    }
+    },
 };
 
 //This gets automatically stripped out in production builds.
-Debug.extend(exported, {isSafari, getPerformanceMetrics: PerformanceUtils.getPerformanceMetrics});
+Debug.extend(exported, {
+    isSafari,
+    getPerformanceMetrics: PerformanceUtils.getPerformanceMetrics,
+});
 
 /**
  * The version of Mapbox GL JS in use as specified in `package.json`,
@@ -262,16 +274,16 @@ Debug.extend(exported, {isSafari, getPerformanceMetrics: PerformanceUtils.getPer
  */
 
 /**
-  * Gets the map's [RTL text plugin](https://www.mapbox.com/mapbox-gl-js/plugins/#mapbox-gl-rtl-text) status.
-  * The status can be `unavailable` (i.e. not requested or removed), `loading`, `loaded` or `error`.
-  * If the status is `loaded` and the plugin is requested again, an error will be thrown.
-  *
-  * @function getRTLTextPluginStatus
-  * @example
-  * const pluginStatus = maplibregl.getRTLTextPluginStatus();
-  */
+ * Gets the map's [RTL text plugin](https://www.mapbox.com/mapbox-gl-js/plugins/#mapbox-gl-rtl-text) status.
+ * The status can be `unavailable` (i.e. not requested or removed), `loading`, `loaded` or `error`.
+ * If the status is `loaded` and the plugin is requested again, an error will be thrown.
+ *
+ * @function getRTLTextPluginStatus
+ * @example
+ * const pluginStatus = maplibregl.getRTLTextPluginStatus();
+ */
 
 export default exported;
 
 // canary assert: used to confirm that asserts have been removed from production build
-assert(true, 'canary assert');
+assert(true, "canary assert");
