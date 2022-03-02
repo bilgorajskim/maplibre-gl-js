@@ -6,7 +6,146 @@
 
 ### 🐞 Bug fixes
 
+- Add adjustment for glyph rendering, CJK fonts are mainly affected (#1002).
+- Improve typings to fix Angular strict mode failure (#790, #970, #934)
+- Fix `SourceCache.loaded()` always returning `true` following a load error (#1025)
 - *...Add new stuff here...*
+
+## 2.1.6
+
+### 🐞 Bug fixes
+
+- Publish `dist/package.json` (#998).
+
+## 2.1.6-pre.1
+
+### 🐞 Bug fixes
+
+- Publish `dist/package.json` (#998).
+
+## 2.1.5
+
+### 🐞 Bug fixes
+
+- Publish empty `postinstall.js` file. Follow-up on (#990), (#991), (#992).
+
+## 2.1.5-pre.1
+
+### 🐞 Bug fixes
+
+- Publish empty `postinstall.js` file. Follow-up on (#990), (#991), (#992).
+
+## 2.1.4
+
+### 🐞 Bug fixes
+
+- Fix missing `postinstall.js` file in npm publish. Follow-up on (#990), (#991).
+
+## 2.1.3
+
+### 🐞 Bug fixes
+
+- Fix postinstall `ts-node` error on non-dev installs (#900)
+
+## 2.1.2
+
+### Features and improvements
+
+- Default compact attribution to be open by default to comply with OpenSteetMap Attribution Guidelines (#795)
+- Export `Source` classes (`GeoJSONSource` etc.) declarations. (#801)
+- Make `AJAXError` public so error HTTP responses can be handled differently from other errors.
+
+### 🐞 Bug fixes
+
+- Fix compact attribution button showing when attribution is blank (#795)
+- Fix error mismatched image size for CJK characters (#718)
+- Fire `dataabort` and `sourcedataabort` events when a tile request is aborted (#794)
+- Fix NextJs `performance` undefined (#768)
+
+## 2.1.1
+
+### 🐞 Bug fixes
+
+- Fix stale tiles being shown when calling VectorTileSource#setTiles while the map is moving.
+
+## 2.1.0
+### ✨ Features and improvements
+
+* Add `icon-overlap` and `text-overlap` symbol layout properties [#347](https://github.com/maplibre/maplibre-gl-js/pull/347)
+* Deprecate `icon-allow-overlap` and `text-allow-overlap` symbol layout properties. `icon-overlap` and `text-overlap` are their replacements.
+* Remove node package chalk from devDependencies (#789).
+* Allow setting a custom pixel ratio by adding a `MapOptions#pixelRatio` property and a `Map#setPixelRatio` method. Since a high `devicePixelRatio` value can lead to performance and display problems, it is done at your own risk.  (#769)
+
+## 2.0.5
+### 🐞 Bug fixes
+- Remove list of node versions allowed to install the package.
+
+## 2.0.4
+### 🐞 Bug fixes
+- Missing package.json file in version 2.0.3 dist in npm (#811) - this causes webpack to fail
+
+## 2.0.3
+### Features and improvements
+
+* Remove node package chalk from devDependencies (#789).
+* Remove vector-tile module declaration and revert to using point from @mapbox/point-geometry (#788, #800)
+* Moved development environemnt to use NodeJs 16 (#781, #806)
+
+### 🐞 Bug fixes
+
+- Fix max cluster zoom in geojson source (#61)
+
+## 2.0.2
+
+### 🐞 Bug fixes
+
+- Fix typescript generated file (#776).
+
+## 2.0.1
+
+### 🐞 Bug fixes
+
+- Fix documentation of `addProtocol` and `removeProtocol`.
+
+## 2.0.0
+
+### Features and improvements
+
+- Migrated the production code to typescript
+- ** Breaking Change ** removed `version` from the public API
+- ** Breaking Change ** stopped supporting IE (internet explorer)
+- ** Breaking Change ** stopped supporting Chrome 49-65. Chrome 66+ required. For Chrome 49-65 support use version 1.15.2.
+- ** Breaking Change ** removed all code related to `accessToken` and Mapbox specific urls starting with `mapbox://`. Telemetry and tracking code was removed.
+- ** Breaking Change ** removed `baseApiUrl` as it was used only for Mapbox related urls
+- ** Breaking Change ** typescript typings have changed:
+  - `Style` => `StyleSpecification`
+  - `AnyLayer` => `LayerSpecification`
+  - `AnySourceData` => `SourceSpecification`
+  - `MapboxEvent` => `MapLibreEvent`
+  - `MapboxOptions` => `MapOptions`
+  - `MapBoxZoomEvent` => `MapLibreZoomEvent`
+  - `*SourceRaw` + `*SourceOptions` => `*SourceSpecification`
+  - `*Source` (source implementation definition) were removed
+  - `*Layer` => `*LayerSpecification`
+  - `*Paint` => `*LayerSpecification['paint']`
+  - `*Layout` => `*LayerSpecification['layout']`
+  - `MapboxGeoJSONFeature` => `GeoJSONFeature`
+- Added `redraw` function to map (#206)
+- Improve attribution controls accessibility. See [#359](https://github.com/maplibre/maplibre-gl-js/issues/359)
+- Allow maxPitch value up to 85, use values greater than 60 at your own risk (#574)
+- `getImage` uses createImageBitmap when supported (#650)
+
+### 🐞 Bug fixes
+
+- Fix warning due to strict comparison of SDF property in image sprite (#303)
+- Fix tile placeholder replacement to allow for placeholders to be in a URL more than once. (#348)
+- Fix type check for non dom environment. (#334)
+- Fix precision problem in patterns when overzoomed in OpenGL ES devices.
+- Fix padding-top of the popup to improve readability of popup text (#354).
+- Fix GeoJSONSource#loaded sometimes returning true while there are still pending loads (#669)
+- Fix MapDataEvent#isSourceLoaded being true in GeoJSONSource "dataloading" event handlers (#694)
+- Fix events being fired after Map#remove has been called when the WebGL context is lost and restored (#726)
+- Fix nested expressions types definition [#757](https://github.com/maplibre/maplibre-gl-js/pull/757)
 
 ## 1.15.2
 
