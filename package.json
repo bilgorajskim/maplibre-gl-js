@@ -1,7 +1,7 @@
 {
   "name": "@bilgorajskim/maplibre-gl",
   "description": "BSD licensed community fork of mapbox-gl, a WebGL interactive maps library",
-  "version": "2.1.13",
+  "version": "2.1.15",
   "main": "dist/maplibre-gl.js",
   "style": "dist/maplibre-gl.css",
   "license": "BSD-3-Clause",

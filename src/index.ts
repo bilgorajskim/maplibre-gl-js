@@ -3,10 +3,10 @@ import {supported} from '@mapbox/mapbox-gl-supported';
 
 import Map from './ui/map';
 import NavigationControl from './ui/control/navigation_control';
-import GeolocateControl from './ui/control/geolocate_control';
-import AttributionControl from './ui/control/attribution_control';
-import ScaleControl from './ui/control/scale_control';
-import FullscreenControl from './ui/control/fullscreen_control';
+// import GeolocateControl from './ui/control/geolocate_control';
+// import AttributionControl from './ui/control/attribution_control';
+// import ScaleControl from './ui/control/scale_control';
+// import FullscreenControl from './ui/control/fullscreen_control';
 import Popup from './ui/popup';
 import Marker from './ui/marker';
 import Style from './style/style';
@@ -27,12 +27,12 @@ import {AJAXError} from './util/ajax';
 import type {RequestParameters, ResponseCallback} from './util/ajax';
 import type {Cancelable} from './types/cancelable';
 import GeoJSONSource from './source/geojson_source';
-import CanvasSource from './source/canvas_source';
-import ImageSource from './source/image_source';
-import RasterDEMTileSource from './source/raster_dem_tile_source';
-import RasterTileSource from './source/raster_tile_source';
+// import CanvasSource from './source/canvas_source';
+// import ImageSource from './source/image_source';
+// import RasterDEMTileSource from './source/raster_dem_tile_source';
+// import RasterTileSource from './source/raster_tile_source';
 import VectorTileSource from './source/vector_tile_source';
-import VideoSource from './source/video_source';
+// import VideoSource from './source/video_source';
 
 const exported = {
     supported,
@@ -40,10 +40,10 @@ const exported = {
     getRTLTextPluginStatus,
     Map,
     NavigationControl,
-    GeolocateControl,
-    AttributionControl,
-    ScaleControl,
-    FullscreenControl,
+    // GeolocateControl,
+    // AttributionControl,
+    // ScaleControl,
+    // FullscreenControl,
     Popup,
     Marker,
     Style,
@@ -54,13 +54,13 @@ const exported = {
     Evented,
     AJAXError,
     config,
-    CanvasSource,
+    // CanvasSource,
     GeoJSONSource,
-    ImageSource,
-    RasterDEMTileSource,
-    RasterTileSource,
+    // ImageSource,
+    // RasterDEMTileSource,
+    // RasterTileSource,
     VectorTileSource,
-    VideoSource,
+    // VideoSource,
     /**
      * Initializes resources like WebWorkers that can be shared across maps to lower load
      * times in some situations. `maplibregl.workerUrl` and `maplibregl.workerCount`, if being
