@@ -46,7 +46,7 @@
     "@swc/core": "^1.2.135",
     "@swc/jest": "^0.2.17",
     "@types/benchmark": "^2.1.1",
-    "@types/browserify": "^12.0.37",
+    "@types/browserify": "^12.0.40",
     "@types/cssnano": "^5.0.0",
     "@types/d3": "^7.1.0",
     "@types/diff": "^5.0.2",
